@@ -1,0 +1,22 @@
+General:
+  ConfigurationVersion: 2
+  MinRefineryVersion: v2.0
+GRPCServerParameters:
+  Enabled: true
+  ListenAddr: "0.0.0.0:4317"
+Logger:
+  Level: warn
+Collection:
+  AvailableMemory: 8Gi
+  MaxMemoryPercentage: 80
+  CacheCapacity: 55000
+  IncomingQueueSize: 150000
+  PeerQueueSize: 150000
+BufferSizes:
+  UpstreamBufferSize: 50000
+  PeerBufferSize: 50000
+StressRelief:
+  Mode: never
+RefineryTelemetry:
+  AddRuleReasonToTrace: true
+  AddHostMetadataToTrace: true

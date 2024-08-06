@@ -1,0 +1,43 @@
+services:
+  refinery:
+    build: refinery
+    ports:
+      - 4317:4317
+      - 8080:8080
+    entrypoint:
+      - "refinery"
+    command:
+      - "-c"
+      - "/etc/refinery/config.yaml"
+      - "-r"
+      - "/etc/refinery/rules.yaml"
+    volumes:
+      - ./config.yaml:/etc/refinery/config.yaml
+      - ./rules.yaml:/etc/refinery/rules.yaml
+    environment:
+      - HONEYCOMB_API_KEY
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+  loadgen:
+    build: loadgen
+    depends_on:
+      - refinery
+    command:
+      - launcher.sh
+      - --services
+      - "500"
+      - --tps
+      - "3"
+      - --runtime
+      - "120"
+    volumes:
+      - ./loadgen.yaml:/etc/loadgen/config.yaml
+    environment:
+      - HONEYCOMB_API_KEY
+  # netshoot:
+  #   image: nicolaka/netshoot
+  #   entrypoint:
+  #     - "sh"
+  #   tty: true
+  #   stdin_open: true
