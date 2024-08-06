@@ -31,8 +31,8 @@ services:
       - "3"
       - --runtime
       - "120"
-    volumes:
-      - ./loadgen.yaml:/etc/loadgen/config.yaml
+    # volumes:
+    #   - ./loadgen.yaml:/etc/loadgen/config.yaml
     environment:
       - HONEYCOMB_API_KEY
   # netshoot:
