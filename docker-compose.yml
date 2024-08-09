@@ -5,11 +5,13 @@ services:
       - 4317:4317
       - 8080:8080
     volumes:
-      - ./config.yaml:/etc/refinery/config.yaml
-      - ./rules.yaml:/etc/refinery/rules.yaml
+      - ./refinery/config.yaml:/etc/refinery/config.yaml
+      - ./refinery/rules.yaml:/etc/refinery/rules.yaml
       - ./refinery/connstats.sh:/ko-app/connstats.sh
     environment:
       - HONEYCOMB_API_KEY
+      - HTTP_PROXY=http://user%40honeycomb.io:password1@squid:3128
+      - HTTPS_PROXY=http://user%40honeycomb.io:password1@squid:3128
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -20,12 +22,22 @@ services:
     command:
       - launcher.sh
       - --services
-      - "500"
+      - "1"
       - --tps
       - "3"
       - --runtime
-      - "60"
+      - "10"
     volumes:
       - ./loadgen/launcher.sh:/ko-app/launcher.sh
     environment:
       - HONEYCOMB_API_KEY
+  squid:
+    image: ubuntu/squid:latest
+    ports:
+      - 3128:3128
+    environment:
+      - SQUID_USERNAME=admin
+      - SQUID_PASSWORD=admin
+    volumes:
+      - ./squid/squid.conf:/etc/squid/squid.conf
+      - ./squid/passwords:/etc/squid/passwords
