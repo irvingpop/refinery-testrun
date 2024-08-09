@@ -4,16 +4,10 @@ services:
     ports:
       - 4317:4317
       - 8080:8080
-    entrypoint:
-      - "refinery"
-    command:
-      - "-c"
-      - "/etc/refinery/config.yaml"
-      - "-r"
-      - "/etc/refinery/rules.yaml"
     volumes:
       - ./config.yaml:/etc/refinery/config.yaml
       - ./rules.yaml:/etc/refinery/rules.yaml
+      - ./refinery/connstats.sh:/ko-app/connstats.sh
     environment:
       - HONEYCOMB_API_KEY
     cap_add:
@@ -30,9 +24,9 @@ services:
       - --tps
       - "3"
       - --runtime
-      - "120"
-    # volumes:
-    #   - ./loadgen.yaml:/etc/loadgen/config.yaml
+      - "60"
+    volumes:
+      - ./loadgen/launcher.sh:/ko-app/launcher.sh
     environment:
       - HONEYCOMB_API_KEY
   # netshoot:
