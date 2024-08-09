@@ -29,9 +29,3 @@ services:
       - ./loadgen/launcher.sh:/ko-app/launcher.sh
     environment:
       - HONEYCOMB_API_KEY
-  # netshoot:
-  #   image: nicolaka/netshoot
-  #   entrypoint:
-  #     - "sh"
-  #   tty: true
-  #   stdin_open: true
