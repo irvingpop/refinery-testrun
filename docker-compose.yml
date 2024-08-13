@@ -5,8 +5,8 @@ services:
       - 4317:4317
       - 8080:8080
     volumes:
-      - ./config.yaml:/etc/refinery/config.yaml
-      - ./rules.yaml:/etc/refinery/rules.yaml
+      - ./refinery/config.yaml:/etc/refinery/config.yaml
+      - ./refinery/rules.yaml:/etc/refinery/rules.yaml
       - ./refinery/connstats.sh:/ko-app/connstats.sh
     environment:
       - HONEYCOMB_API_KEY
