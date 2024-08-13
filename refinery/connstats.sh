@@ -34,8 +34,8 @@ while true; do
 
   # netstatout=$(netstat -an)
   # Get the number of connections from netstat
-  established_count=$(netstat -an | grep -e ':443.*ESTABLISHED' | wc -l)
-  wait_count=$(netstat -an | grep -e ':443.*WAIT' | wc -l)
+  established_count=$(netstat -an | grep -e ':443.*ESTABLISHED' | grep -v 'ffff' | wc -l)
+  wait_count=$(netstat -an | grep -e ':443.*WAIT' | grep -v 'ffff' | wc -l)
 
   # Get the number of new connections from tshark
   # use the previous second, so we can capture a full second
